@@ -25,5 +25,8 @@ func main() {
 	log.Info(fmt.Sprintf("Starting server on PORT %v", config.PORT))
 
 	port := fmt.Sprintf(":%v", config.PORT)
-	http.ListenAndServe(port, router)
+	err = http.ListenAndServe(port, router)
+	if err != nil {
+		log.Panic(err)
+	}
 }

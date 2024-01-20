@@ -12,7 +12,11 @@ func NewRouter(app *app.App) *chi.Mux {
 	r := chi.NewRouter()
 
 	r.Get("/", func(w http.ResponseWriter, _ *http.Request) {
-		w.Write([]byte("welcome"))
+		_, err := w.Write([]byte("welcome"))
+		if err != nil {
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
 	})
 
 	return r
