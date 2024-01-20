@@ -3,4 +3,5 @@
 go.work
 
 .env
-.env.*
+.env.dev
+.env.prod

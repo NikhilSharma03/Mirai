@@ -1,0 +1,24 @@
+area/docs:
+  - 'README.md'
+  - 'LICENSE'
+  - 'assets/**/*'
+
+area/ci:
+  - '.github/**/*'
+
+area/server:
+  - 'cmd/**/*'
+  - 'config/**/*'
+  - 'internal/**/*'
+  - 'go.mod'
+  - 'go.sum'
+  - '.air.toml'
+  - '.env.example'
+  - '.dockerignore'
+  - 'Dockerfile.dev'
+  - 'Dockerfile.prod'
+  - 'docker-compose-dev.yml'
+  - 'Makefile'
+
+area/ui:
+  - 'ui/**/*'
