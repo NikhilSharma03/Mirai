@@ -1,0 +1,30 @@
+ARG BUILD_IMAGE_TAG=1.21-bullseye
+
+FROM golang:${BUILD_IMAGE_TAG} AS build
+
+RUN useradd -u 1001 nonroot
+
+WORKDIR /usr/src/app
+
+COPY go.mod go.sum ./
+
+RUN go mod download
+
+COPY . .
+
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o mirai_api ./cmd
+
+# Production
+FROM scratch
+
+ENV GO_ENV=production
+
+WORKDIR /usr/src/app
+
+COPY --from=build /etc/passwd /etc/passwd
+
+COPY --from=build /usr/src/app/mirai_api /usr/src/app/mirai_api
+
+USER nonroot
+
+CMD ["./mirai_api"]
