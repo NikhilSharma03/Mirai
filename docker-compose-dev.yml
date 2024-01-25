@@ -1,0 +1,57 @@
+version: "3.9"
+
+services:
+  mirai_api:
+    container_name: mirai_api
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+
+    volumes:
+      - type: bind
+        source: .
+        target: /usr/src/app
+
+    ports:
+      - 8001:8001
+
+    env_file:
+      - '.env'
+
+    links:
+      - postgres
+
+    depends_on:
+      - postgres
+
+    networks:
+      - backend
+
+    restart: unless-stopped
+
+  postgres:
+    container_name: postgres
+    image: postgres:14-alpine
+
+    volumes:
+      - pqsl_data:/var/lib/postgresql/data
+
+    ports:
+      - 5432:5432
+
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=foobar
+      - POSTGRES_DB=miraidb
+
+    networks:
+      - backend
+
+    restart: unless-stopped
+
+
+volumes:
+  pqsl_data:
+
+networks:
+  backend:

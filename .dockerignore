@@ -1,0 +1,9 @@
+.git
+.github
+assets
+
+.env
+.env.dev
+.env.prod
+
+mirai_api
